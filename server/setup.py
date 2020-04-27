@@ -39,9 +39,9 @@ setup(
         'Topic :: Scientific/Engineering :: Artificial Intelligence',
     ),
     entry_points={
-        'console_scripts': ['bert-serving-start=bert_serving.server.cli:main',
-                            'bert-serving-benchmark=bert_serving.server.cli:benchmark',
-                            'bert-serving-terminate=bert_serving.server.cli:terminate'],
+        'console_scripts': ['albert-vi-serving-start=bert_serving.server.cli:main',
+                            'albert-vi-serving-benchmark=bert_serving.server.cli:benchmark',
+                            'albert-vi-serving-terminate=bert_serving.server.cli:terminate'],
     },
     keywords='bert nlp tensorflow machine learning sentence encoding embedding serving',
 )
