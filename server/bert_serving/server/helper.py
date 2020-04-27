@@ -81,6 +81,8 @@ def get_args_parser():
                                        'config the path, checkpoint and filename of a pretrained/fine-tuned BERT model')
     group1.add_argument('-model_dir', type=str, required=True,
                         help='directory of a pretrained BERT model')
+    group1.add_argument('-spm_model_file', type=str, required=True,
+                        help='The model file for sentence piece tokenization.')
     group1.add_argument('-tuned_model_dir', type=str,
                         help='directory of a fine-tuned BERT model')
     group1.add_argument('-ckpt_name', type=str, default='bert_model.ckpt',
