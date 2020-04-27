@@ -1,7 +1,7 @@
 openapi: "3.0.2"
 info:
   version: 1.0.0
-  title: Bert as a Service API
+  title: Albert_vi as a Service API
   description: API to encode sentence or tokens to vectors
   termsOfService: http://swagger.io/terms/
   contact:

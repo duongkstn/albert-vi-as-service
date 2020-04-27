@@ -48,6 +48,7 @@ class BertServer(threading.Thread):
         self.logger = set_logger(colored('VENTILATOR', 'magenta'), args.verbose)
 
         self.model_dir = args.model_dir
+        self.spm_model_file = args.spm_model_file
         self.max_seq_len = args.max_seq_len
         self.num_worker = args.num_worker
         self.max_batch_size = args.max_batch_size
@@ -68,6 +69,7 @@ class BertServer(threading.Thread):
         with Pool(processes=1) as pool:
             # optimize the graph, must be done in another process
             from .graph import optimize_graph
+            print('argssssssss = ', self.args)
             self.graph_path, self.bert_config = pool.apply(optimize_graph, (self.args,))
         # from .graph import optimize_graph
         # self.graph_path = optimize_graph(self.args, self.logger)

@@ -454,7 +454,7 @@ class ConcurrentBertClient(BertClient):
 
         """
         try:
-            from bert_serving.client import BertClient
+            from albert_vi_serving.client import BertClient
         except ImportError:
             raise ImportError('BertClient module is not available, it is required for serving HTTP requests.'
                               'Please use "pip install -U bert-serving-client" to install it.'

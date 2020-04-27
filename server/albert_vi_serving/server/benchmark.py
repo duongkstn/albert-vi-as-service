@@ -16,7 +16,7 @@ class BenchmarkClient(threading.Thread):
 
     def run(self):
         try:
-            from bert_serving.client import BertClient
+            from albert_vi_serving.client import BertClient
         except ImportError:
             raise ImportError('BertClient module is not available, it is required for benchmarking.'
                               'Please use "pip install -U bert-serving-client" to install it.')
@@ -32,7 +32,7 @@ class BenchmarkClient(threading.Thread):
 
 def run_benchmark(args):
     from copy import deepcopy
-    from bert_serving.server import BertServer
+    from albert_vi_serving.server import BertServer
 
     # load vocabulary
     with open(args.client_vocab_file, encoding='utf8') as fp:

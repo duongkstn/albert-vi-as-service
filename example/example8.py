@@ -11,7 +11,7 @@
 # simple similarity search on FAQ
 
 import numpy as np
-from bert_serving.client import BertClient
+from albert_vi_serving.client import BertClient
 from termcolor import colored
 
 prefix_q = '##### **Q:** '

@@ -106,8 +106,11 @@ class AlbertConfig(object):
     def from_dict(cls, json_object):
         """Constructs a `AlbertConfig` from a Python dictionary of parameters."""
         config = AlbertConfig(vocab_size=None)
+        print('configggggg ', config)
         for (key, value) in six.iteritems(json_object):
+            print('key = ', key, 'value = ', value)
             config.__dict__[key] = value
+        print('config = ', config)
         return config
 
     @classmethod

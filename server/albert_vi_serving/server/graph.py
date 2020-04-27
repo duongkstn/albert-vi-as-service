@@ -42,31 +42,36 @@ def optimize_graph(args, logger=None):
         logger = set_logger(colored('GRAPHOPT', 'cyan'), args.verbose)
     try:
         # we don't need GPU for optimizing the graph
+        print('dong1')
         tf = import_tf(verbose=args.verbose)
         from tensorflow.python.tools.optimize_for_inference_lib import optimize_for_inference
-
+        print('dong2')
         config = tf.ConfigProto(device_count={'GPU': 0}, allow_soft_placement=True)
-
+        print('dong3')
         config_fp = os.path.join(args.model_dir, args.config_name)
         init_checkpoint = os.path.join(args.tuned_model_dir or args.model_dir, args.ckpt_name)
         if args.fp16:
             logger.warning('fp16 is turned on! '
                            'Note that not all CPU GPU support fast fp16 instructions, '
                            'worst case you will have degraded performance!')
+        print('dong4')
         logger.info('model config: %s' % config_fp)
         logger.info(
             'checkpoint%s: %s' % (
             ' (override by the fine-tuned model)' if args.tuned_model_dir else '', init_checkpoint))
+        print('dong4a')
         with tf.gfile.GFile(config_fp, 'r') as f:
             # bert_config = modeling.BertConfig.from_dict(json.load(f))
+            print('dong4b')
+            print('dong4c', f, config_fp)
             bert_config = modeling_albert_vi.AlbertConfig.from_dict(json.load(f))
-
+        print('dong5')
         logger.info('build graph...')
         # input placeholders, not sure if they are friendly to XLA
         input_ids = tf.placeholder(tf.int32, (None, None), 'input_ids')
         input_mask = tf.placeholder(tf.int32, (None, None), 'input_mask')
         input_type_ids = tf.placeholder(tf.int32, (None, None), 'input_type_ids')
-
+        print('dong6')
         jit_scope = tf.contrib.compiler.jit.experimental_jit_scope if args.xla else contextlib.suppress
 
         with jit_scope():
@@ -89,7 +94,7 @@ def optimize_graph(args, logger=None):
                 use_one_hot_embeddings=False,
 
             )
-            
+            print('dong7')
             if args.pooling_strategy == PoolingStrategy.CLASSIFICATION:
                 hidden_size = model.pooled_output.shape[-1].value
                 output_weights = tf.get_variable(
@@ -98,7 +103,7 @@ def optimize_graph(args, logger=None):
 
                 output_bias = tf.get_variable(
                     'output_bias', [args.num_labels], initializer=tf.zeros_initializer())
-
+            print('dong8')
             if args.pooling_strategy == PoolingStrategy.REGRESSION:
                 hidden_size = model.pooled_output.shape[-1].value
                 output_weights = tf.get_variable(
@@ -109,9 +114,10 @@ def optimize_graph(args, logger=None):
                     'output_bias', [1], initializer=tf.zeros_initializer())
 
             tvars = tf.trainable_variables()
-
+            print('dong9')
+            print('init_checkpoint', init_checkpoint)
             (assignment_map, initialized_variable_names
-             ) = modeling.get_assignment_map_from_checkpoint(tvars, init_checkpoint)
+             ) = modeling_albert_vi.get_assignment_map_from_checkpoint(tvars, init_checkpoint)
 
             tf.train.init_from_checkpoint(init_checkpoint, assignment_map)
 
@@ -120,7 +126,7 @@ def optimize_graph(args, logger=None):
             masked_reduce_max = lambda x, m: tf.reduce_max(minus_mask(x, m), axis=1)
             masked_reduce_mean = lambda x, m: tf.reduce_sum(mul_mask(x, m), axis=1) / (
                     tf.reduce_sum(m, axis=1, keepdims=True) + 1e-10)
-
+            print('dong10')
             with tf.variable_scope("pooling"):
                 if len(args.pooling_layer) == 1:
                     encoder_layer = model.all_encoder_layers[args.pooling_layer[0]]
@@ -164,11 +170,11 @@ def optimize_graph(args, logger=None):
 
             if args.fp16:
                 pooled = tf.cast(pooled, tf.float16)
-
+            print('dong11')
             pooled = tf.identity(pooled, 'final_encodes')
             output_tensors = [pooled]
             tmp_g = tf.get_default_graph().as_graph_def()
-
+        print('dong12')
         with tf.Session(config=config) as sess:
             logger.info('load parameters from checkpoint...')
 
@@ -185,11 +191,13 @@ def optimize_graph(args, logger=None):
             logger.info('freeze...')
             tmp_g = convert_variables_to_constants(sess, tmp_g, [n.name[:-2] for n in output_tensors],
                                                    use_fp16=args.fp16)
-
+        print('dong13')
         tmp_file = tempfile.NamedTemporaryFile('w', delete=False, dir=args.graph_tmp_dir).name
         logger.info('write graph to a tmp file: %s' % tmp_file)
+        print('dong14')
         with tf.gfile.GFile(tmp_file, 'wb') as f:
             f.write(tmp_g.SerializeToString())
+        print('dong15')
         return tmp_file, bert_config
     except Exception:
         logger.error('fail to optimize the graph!', exc_info=True)

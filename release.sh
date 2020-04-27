@@ -38,8 +38,8 @@ function update_readme {
 
 CLIENT_DIR='client/'
 SERVER_DIR='server/'
-CLIENT_CODE=$CLIENT_DIR'bert_serving/client/__init__.py'
-SERVER_CODE=$SERVER_DIR'bert_serving/server/__init__.py'
+CLIENT_CODE=$CLIENT_DIR'albert_vi_serving/client/__init__.py'
+SERVER_CODE=$SERVER_DIR'albert_vi_serving/server/__init__.py'
 CLIENT_MD=$CLIENT_DIR'README.md'
 SERVER_MD=$SERVER_DIR'README.md'
 VER_TAG='__version__ = '

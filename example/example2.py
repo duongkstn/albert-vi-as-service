@@ -12,7 +12,7 @@
 
 import sys
 
-from bert_serving.client import BertClient
+from albert_vi_serving.client import BertClient
 
 
 def send_without_block(bc, data, repeat=10):
