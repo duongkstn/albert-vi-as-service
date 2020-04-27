@@ -115,8 +115,8 @@ def get_args_parser():
                         is_tokenized=True in Client')
     group2.add_argument('-show_tokens_to_client', action='store_true', default=False,
                         help='sending tokenization results to client')
-    group2.add_argument('-no_position_embeddings', action='store_true', default=False,
-                        help='Whether to add position embeddings for the position of each token in the sequence.')
+    # group2.add_argument('-no_position_embeddings', action='store_true', default=False,
+    #                     help='Whether to add position embeddings for the position of each token in the sequence.')
     group2.add_argument('-num_labels', type=int, default=2,
                         help='Numbers of Label')
     

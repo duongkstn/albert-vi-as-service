@@ -543,8 +543,10 @@ class BertWorker(Process):
             logger.info('job done\tsize: %s\tclient: %s' % (r['encodes'].shape, r['client_id']))
 
     def input_fn_builder(self, socks, tf, sink):
-        from .bert.extract_features import convert_lst_to_features
-        from .bert.tokenization import FullTokenizer
+        # from .bert.extract_features import convert_lst_to_features
+        # from .bert.tokenization import FullTokenizer
+        from .bert.extract_features_albert_vi import convert_lst_to_features
+        from .bert.tokenization_albert_vi import FullTokenizer
 
         def gen():
             # Windows does not support logger in MP environment, thus get a new logger

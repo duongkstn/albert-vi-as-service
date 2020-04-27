@@ -133,21 +133,21 @@ def convert_lst_to_features(lst_str, max_seq_length, max_position_embeddings,
             input_type_ids=input_type_ids)
 
 
-def _truncate_seq_pair(tokens_a, tokens_b, max_length):#giong bert
-    """Truncates a sequence pair in place to the maximum length."""
+def _truncate_seq_pair(tokens_a, tokens_b, max_length):
+  """Truncates a sequence pair in place to the maximum length."""
 
-    # This is a simple heuristic which will always truncate the longer sequence
-    # one token at a time. This makes more sense than truncating an equal percent
-    # of tokens from each, since if one sequence is very short then each token
-    # that's truncated likely contains more information than a longer sequence.
-    while True:
-        total_length = len(tokens_a) + len(tokens_b)
-        if total_length <= max_length:
-            break
-        if len(tokens_a) > len(tokens_b):
-            tokens_a.pop()
-        else:
-            tokens_b.pop()
+  # This is a simple heuristic which will always truncate the longer sequence
+  # one token at a time. This makes more sense than truncating an equal percent
+  # of tokens from each, since if one sequence is very short then each token
+  # that's truncated likely contains more information than a longer sequence.
+  while True:
+    total_length = len(tokens_a) + len(tokens_b)
+    if total_length <= max_length:
+      break
+    if len(tokens_a) > len(tokens_b):
+      tokens_a.pop()
+    else:
+      tokens_b.pop()
 
 
 def read_examples(lst_strs):#gan giong bert return ---> yield
@@ -184,3 +184,4 @@ def read_tokenized_examples(lst_strs):
             pass
         yield InputExample(unique_id=unique_id, text_a=text_a, text_b=text_b)
         unique_id += 1
+
