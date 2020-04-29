@@ -1,6 +1,3 @@
-<h2 align="center">What is it</h2>
-`albert-vi-as-service` is a fork of [bert-as-service](https://github.com/hanxiao/bert-as-service) to deploy [albert_vi](https://github.com/ngoanpv/albert_vi) 
-
 <h2 align="center">Install</h2>
 
 Install the server and client via `pip`. They can be installed separately or even on *different* machines:
