@@ -13,7 +13,7 @@
 import sys
 import time
 
-from albert_vi_serving.client import BertClient
+from bert_serving.client import BertClient
 
 if __name__ == '__main__':
     bc = BertClient(port=int(sys.argv[1]), port_out=int(sys.argv[2]), show_server_config=True)

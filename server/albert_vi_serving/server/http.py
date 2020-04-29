@@ -17,7 +17,7 @@ class BertHTTPProxy(Process):
             from flask_compress import Compress
             from flask_cors import CORS
             from flask_json import FlaskJSON, as_json, JsonError
-            from albert_vi_serving.client import ConcurrentBertClient
+            from bert_serving.client import ConcurrentBertClient
             from flasgger import Swagger
         except ImportError:
             raise ImportError('BertClient or Flask or its dependencies are not fully installed, '

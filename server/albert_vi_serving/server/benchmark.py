@@ -16,7 +16,7 @@ class BenchmarkClient(threading.Thread):
 
     def run(self):
         try:
-            from albert_vi_serving.client import BertClient
+            from bert_serving.client import BertClient
         except ImportError:
             raise ImportError('BertClient module is not available, it is required for benchmarking.'
                               'Please use "pip install -U bert-serving-client" to install it.')

@@ -16,7 +16,7 @@ import random
 
 import GPUtil
 import tensorflow as tf
-from albert_vi_serving.client import ConcurrentBertClient
+from bert_serving.client import ConcurrentBertClient
 from tensorflow.python.estimator.canned.dnn import DNNClassifier
 from tensorflow.python.estimator.run_config import RunConfig
 from tensorflow.python.estimator.training import TrainSpec, EvalSpec, train_and_evaluate

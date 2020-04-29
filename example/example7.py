@@ -16,9 +16,9 @@ from collections import namedtuple
 import numpy as np
 import pandas as pd
 # from MulticoreTSNE import MulticoreTSNE as TSNE
-from albert_vi_serving.client import BertClient
-from albert_vi_serving.server import BertServer
-from albert_vi_serving.server.helper import get_args_parser
+from bert_serving.client import BertClient
+from bert_serving.server import BertServer
+from bert_serving.server.helper import get_args_parser
 from matplotlib import pyplot as plt
 from matplotlib.colors import ListedColormap
 from sklearn.decomposition import PCA

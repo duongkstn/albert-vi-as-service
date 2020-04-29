@@ -16,7 +16,7 @@ import time
 
 import GPUtil
 import tensorflow as tf
-from albert_vi_serving.client import ConcurrentBertClient
+from bert_serving.client import ConcurrentBertClient
 
 os.environ['CUDA_VISIBLE_DEVICES'] = str(GPUtil.getFirstAvailable())
 
